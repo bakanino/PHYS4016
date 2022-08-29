@@ -1,5 +1,6 @@
 import numpy as np
 np.seterr(over='ignore')
+import matplotlib.pyplot as plt
 
 npz_file = np.load('data.npz')
 data = npz_file['data']
@@ -52,4 +53,16 @@ for i in range(n_chain):
     chain_history[i, 0] = C_current
     chain_history[i, 1] = Om_current
 
-print(chain_history[:100])
+#print(chain_history[:100])
+plt.scatter(chain_history[:, 0], chain_history[:, 1], s=1, c=range(chain_history.shape[0]), cmap='viridis')
+plt.xlabel('$C$')
+plt.ylabel('$\Omega_m$')
+plt.title('MCMC Walk')
+plt.colorbar().ax.set_ylabel('Iteration')
+plt.savefig('plot')
+
+
+
+
+
+
