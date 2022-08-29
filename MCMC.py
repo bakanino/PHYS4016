@@ -11,7 +11,7 @@ noise = npz_file['noise']
 np.random.seed(0)
 
 # Markov chain length
-n_chain = 100
+n_chain = int(5e5)
 
 # Starting point
 C_current = 5.0
