@@ -68,9 +68,34 @@ extent = [x_edges[0], x_edges[-1], y_edges[0], y_edges[-1]]
 x_vals = [(x_edges[i] + x_edges[i+1]) / 2 for i in range(bins)]
 y_vals = [(y_edges[i] + y_edges[i+1]) / 2 for i in range(bins)]
 
+# Visualise MCMC without burn-in
+plt.scatter(x, y, s=1, c=range(chain_history[burn_in:, :].shape[0]), cmap='viridis')
+plt.xlabel('$C$')
+plt.ylabel('$\Omega_m$')
+plt.title('MCMC Walk')
+plt.colorbar().ax.set_ylabel('Iteration')
+plt.savefig('plot2')
+
+# Density plot of MCMC without burn-in
 plt.figure
 plt.imshow(np.rot90(heatmap), extent=extent, aspect='auto')
 plt.xlabel('$C$')
 plt.ylabel('$\Omega_m$')
 plt.title('Histogram Density Image')
 plt.savefig('density_image.png')
+
+# Extract the optimal `C` value from marginal posteriors
+plt.figure()
+plt.plot(x_vals, heatmap.sum(axis=1))
+plt.xlabel('$C$')
+plt.ylabel('Marginal Posterior Probability')
+plt.title('Marginal Posterior Probability of $C$')
+plt.savefig('marginal_posterior_C.png')
+
+# Extract the optimal `Omega_m` value from marginal posteriors
+plt.figure()
+plt.plot(y_vals, heatmap.sum(axis=0))
+plt.xlabel('$\Omega_m$')
+plt.ylabel('Marginal Posterior Probability')
+plt.title('Marginal Posterior Probability of $\Omega_m$')
+plt.savefig('marginal_posterior_Ohm_m.png')
