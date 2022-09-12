@@ -14,7 +14,20 @@ def tournament(population, selection_pressure):
         fitness_1 = population[contestant_1, 3]
         fitness_2 = population[contestant_2, 3]
 
+        if fitness_1 < fitness_2:
+            stronger = contestant_1
+            weaker = contestant_2
+        else:
+            stronger = contestant_2
+            weaker = contestant_1
+
+        if np.random.rand() < selection_pressure:
+            winners.append(stronger)
+        else:
+            winners.append(weaker)
+
     return winners
+
 
 np.random.seed(0)
 
