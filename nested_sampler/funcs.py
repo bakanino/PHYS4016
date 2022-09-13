@@ -1,6 +1,13 @@
 import numpy as np
 
 
+def eliminate(active):
+    worst = active[:, -1].argmin()
+    eliminated = active[worst]
+    active = np.delete(active, worst, 0)
+    return active, eliminated
+
+
 def likelihood(x, y):
     return -1/5428 * (np.sin(x) * np.exp((1 - np.cos(y))**2) + np.cos(y) *
                       np.exp((1 - np.sin(x))**2) + (x - y)**2 - 97.8)
@@ -58,5 +65,4 @@ eliminated = [-8, -1, 0.0103]
 
 active = add_point(active, eliminated, low_x, high_x, low_y, high_y)
 
-print(active)
-
+#print(active)
