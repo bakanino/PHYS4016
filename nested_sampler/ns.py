@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from funcs import *
 
 np.random.seed(0)
@@ -40,3 +41,16 @@ while True:
 
 best = active[:, -1].argmax()
 print('({:.1f}, {:.1f})'.format(active[best, 0], active[best, 1]))
+
+x = np.linspace(-6.5, 0, 1000)
+y = np.linspace(-10, 0, 1000)
+xx, yy = np.meshgrid(x, y)
+
+plt.scatter(rejected[:, 0], rejected[:, 1], color = 'black', alpha = 0.5, s = 15, label = 'rejected')
+plt.scatter(active[:, 0], active[:, 1], color = 'red', s = 15, label = 'active')
+plt.contour(xx, yy, likelihood(xx, yy), cmap = 'rainbow')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.colorbar()
+plt.legend(loc = 1, framealpha = 1)
+plt.savefig('nestedsampler')
