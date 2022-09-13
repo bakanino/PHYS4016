@@ -2,6 +2,9 @@ import numpy as np
 
 
 def tournament(population, selection_pressure):
+    '''Tournament selection will return a list of indices, corresponding
+       to the index of the individuals that 'won' their tournament'''
+
     population_size = population.shape[0]
     N_tournaments = 2*population_size
 

@@ -12,9 +12,15 @@ def mcmc(x, y, likelihood_rejected, low_x, high_x, low_y, high_y):
         proposed_x = x + 0.13 * np.random.randn()
         proposed_y = y + 0.2 * np.random.randn()
 
-        if (proposed_x < low_x or proposed_x > high_x or
-                proposed_y < low_y or proposed_y > high_y):
+        if (proposed_x < low_x or proposed_x > high_x or proposed_y < low_y or proposed_y > high_y):
             continue
+
+        proposed_likelihood = likelihood(proposed_x, proposed_y)
+
+        if proposed_likelihood > likelihood_rejected:
+            x = proposed_x
+            y = proposed_y
+            accepted += 1
 
     return x, y
 
