@@ -25,6 +25,18 @@ def mcmc(x, y, likelihood_rejected, low_x, high_x, low_y, high_y):
     return x, y
 
 
+def add_point(active, eliminated, low_x, high_x, low_y, high_y):
+    threshold = eliminated[-1]
+    while True:
+        ind = np.random.randint(low=0, high=active.shape[0])
+        proposed_x, proposed_y = mcmc(active[ind, 0], active[ind, 1], threshold, low_x, high_x, low_y, high_y)
+        proposed_likelihood = likelihood(proposed_x, proposed_y)
+        if proposed_likelihood > threshold:
+            break
+    active = np.vstack((active, [[proposed_x, proposed_y, proposed_likelihood]]))
+    return active
+
+
 np.random.seed(0)
 
 # Specify bounds
@@ -33,6 +45,18 @@ high_x = 0
 low_y = -10
 high_y = 0
 
-x, y = mcmc(-3, -3, 0.02, low_x, high_x, low_y, high_y)
+#x, y = mcmc(-3, -3, 0.02, low_x, high_x, low_y, high_y)
+#
+#print('({:.4f}, {:.4f})'.format(x, y))
 
-print('({:.4f}, {:.4f})'.format(x, y))
+active = np.array([[-6, -4, 0.0167],
+                   [-2, -3, 0.0336],
+                   [ 0,  0, 0.0175],
+                   [-3, -7, 0.0146]])
+
+eliminated = [-8, -1, 0.0103]
+
+active = add_point(active, eliminated, low_x, high_x, low_y, high_y)
+
+print(active)
+
