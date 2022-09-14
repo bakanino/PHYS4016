@@ -14,18 +14,19 @@ target_mean_drop_height = np.concatenate((blue_z, green_z)).mean()
 
 # Generate histograms of the true data
 bins = 50
-target_blue_heatmap, blue_x_edges, blue_y_edges = np.histogram2d(blue_x, blue_z, bins = bins)
-target_blue_heatmap /= len(blue_x)
-
-target_green_heatmap, green_x_edges, green_y_edges = np.histogram2d(green_y, green_z, bins=bins)
-target_green_heatmap /= len(green_y)
+#target_blue_heatmap, blue_x_edges, blue_y_edges = np.histogram2d(blue_x, blue_z, bins = bins)
+#target_blue_heatmap /= len(blue_x)
+target_blue_heatmap = np.histogram2d(blue_x, blue_z, bins=bins)[0]/len(blue_x)
+target_green_heatmap = np.histogram2d(green_y, green_z, bins=bins)[0]/len(green_y)
+#target_green_heatmap, green_x_edges, green_y_edges = np.histogram2d(green_y, green_z, bins=bins)
+#target_green_heatmap /= len(green_y)
 
 tol_drop_ratio = 0.1
 tol_mean_drop_height = 0.02
 tol_heatmap_abs_err = 2
 
 N_drops = 10000
-N_expts = 2000
+N_expts = 5000
 
 accepted = None
 
