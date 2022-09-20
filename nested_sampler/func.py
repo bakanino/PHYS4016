@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 def likelihood(x, y):
     return -1/5428 * (np.sin(x) * np.exp((1 - np.cos(y))**2) + np.cos(y) * \
