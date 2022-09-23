@@ -24,9 +24,12 @@ for i in range(N_expts):
 
     blue_x, blue_z, green_y, green_z = sprinkler(x, y, N_drops)
     drop_ratio = blue_x.shape[0]/green_y.shape[0]
+    mean_drop_height = np.concatenate((blue_z, green_z)).mean()
 
     # Test ABC criteria
-    if np.abs(target_drop_ratio - drop_ratio) < tol_drop_ratio:
+    criteria1 = np.abs(target_drop_ratio - drop_ratio) < tol_drop_ratio
+    criteria2 = np.abs(target_drop_ratio - mean_drop_height) < tol_drop_ratio
+    if criteria1 and criteria2:
         if accepted is None:
             accepted = np.array([x ,y])
         else:
