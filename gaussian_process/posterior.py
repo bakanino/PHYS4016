@@ -22,3 +22,13 @@ sigma_2 = sigma_22 - (sigma_11_I @ sigma_12).T @ sigma_12
 stdev = np.sqrt(np.diag(sigma_2))
 
 print(mu_2)
+
+plt.plot(x2, mu_2, label='$\mu_{2|1}$')
+plt.plot(x1, y1, 'ko', label='$(x_1, y_1$')
+plt.fill_between(x2.flat, mu_2-2*stdev, mu_2+2*stdev,
+                 alpha=0.2, label='$2 \sigma_{2|1}$')
+plt.legend()
+plt.title('Distribution of posterior')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.savefig('pos_distribution.png')
