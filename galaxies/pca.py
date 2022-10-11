@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
+import numpy as np
 
 data = pd.read_csv('galaxies.csv')
 columns = ['redshift', 'stellar_mass', 'deVRad_r', 'deVAB_r', 'expRad_r', 'expAB_r']
@@ -13,9 +14,10 @@ X = (X-mu)/sigma
 pca = PCA()
 pca.fit(X)
 W = pca.components_
-plt.scatter(X[:,0], X[:,1], s=5, alpha=0.2)
-plt.quiver([0,0], [0,0], W[:,0], W[:,1], scale_units='xy', scale=1/pca.explained_variance_)
+T = pca.transform(X)
+plt.scatter(T[:,0], T[:,1], s=5, alpha=0.2)
+plt.plot([-5,6], [0,0], color='red')
 plt.axis('equal')
-plt.xlabel('Redshift')
-plt.ylabel('Stellar mass')
-plt.savefig('pca.png')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.savefig('projection.png')
