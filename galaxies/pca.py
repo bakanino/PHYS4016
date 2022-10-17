@@ -18,6 +18,8 @@ T = pca.transform(X)
 mu = T.mean(axis=0)
 sigma = T.std(axis=0)
 
+T = (T-mu)/sigma
+
 spirals = T[data['class_label'] == 'spiral']
 ellipticals = T[data['class_label'] == 'elliptical']
 
