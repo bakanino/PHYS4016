@@ -1,4 +1,5 @@
 from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -20,8 +21,14 @@ sigma = T.std(axis=0)
 
 T = (T-mu)/sigma
 
-spirals = T[data['class_label'] == 'spiral']
-ellipticals = T[data['class_label'] == 'elliptical']
+kmeans = KMeans(n_clusters=2, random_state=0)
+kmeans.fit(T)
+
+#spirals = T[data['class_label'] == 'spiral']
+#ellipticals = T[data['class_label'] == 'elliptical']
+spirals = T[kmeans.labels_ == 1]
+ellipticals = T[kmeans.labels_ == 0]
+
 
 # Visualise your data
 fig = plt.figure(figsize = (10, 7))
@@ -44,4 +51,4 @@ ax.scatter(spirals[:,0], spirals[:, 2], marker = '.', zdir = 'y', zs = 10, alpha
 plt.legend()
 ax.set_xlabel('x'); ax.set_ylabel('y'); ax.set_zlabel('z')
 ax.set_xlim([-10, 10]); ax.set_ylim([-10, 10]); ax.set_zlim([-10, 10])
-plt.savefig('pca.png')
+plt.savefig('kmeans.png')
