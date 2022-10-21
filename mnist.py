@@ -29,4 +29,4 @@ model.fit(x_train, y_train, epochs=10)
 
 loss, accuracy = model.evaluate(x_test, y_test)
 
-print(accuracy)
+print(accuracy) #0.9836323857307434
